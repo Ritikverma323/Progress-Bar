@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .value{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .value a{
+        
+        height:50px;
+        width:50px;
+        font-size: 20px;
+        font-weight: 800;
+        border:1px solid black;
+        text-align: center;
+        line-height: 50px;
+        margin: 20px;
+    }
+
+progress.red::-moz-progress-bar { background: rgb(255, 51, 0); }
+progress.red::-webkit-progress-value { background: rgb(255, 60, 0); }
+progress.red { color: red; }
+
+
+
+progress.blue::-moz-progress-bar { background: rgb(69, 38, 206); }
+progress.blue::-webkit-progress-value { background: rgb(68, 0, 255); }
+progress.blue { color: rgb(11, 27, 167); }
+
+progress.green::-moz-progress-bar { background: rgb(38, 206, 94); }
+progress.green::-webkit-progress-value { background: rgb(0, 255, 34); }
+progress.green { color: rgb(0, 255, 0); }
+
+
+</style>
+<body>
+    <label for="file">Downloading progress:</label>
+    <progress id="file" class="w3-red" value="30" max="100"> 30% </progress>
+    <div class="value">
+        <a class="subtract">-</a>
+        <a class="add">+</a>
+    </div>
+    
+    <script src="./script.js"></script>
+
+    <script>
+        let file = document.getElementById("file");
+let currentValue = file.value;
+document.querySelectorAll(".value a").forEach(function (btn) {
+  btn.addEventListener("click", (e) => {
+    console.log("e", e.target.className);
+    if (e.target.className == "subtract") {
+      if (file.value > 10) {
+        file.value = file.value - 10;
+      } else {
+        console.log("minimum limit reached");
+      }
+    } else if (e.target.className == "add") {
+      if (file.value < 100) {
+        file.value = file.value + 10;
+      } else {
+        console.log("maximum limit reached");
+      }
+    }
+    changeColor();
+  });
+});
+
+function changeColor() {
+  let color = ["red", "blue", "green", "red", "blue"];
+
+  let currentValue = file.value;
+  let n = currentValue / 10;
+  file.className = color[n];
+  let progress = document.getElementsByTagName("progress");
+  progress[0].style.backgroundColor = color[n];
+  console.log(file.style.background);
+  console.log(n);
+}
+
+    </script>
+</body>
+</html>
